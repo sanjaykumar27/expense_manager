@@ -21247,7 +21247,7 @@ strong {
 	display: block;
 	margin: 0 0 20px 0;
 	padding: 0;
-	font-family: Roboto;
+	font-family: 'Open Sans', sans-serif;
 	font-weight: 500
 }
 
@@ -21575,7 +21575,7 @@ code {
 	padding: .75rem 2rem;
 	font-size: 1rem;
 	font-weight: 400;
-	font-family: Poppins
+	font-family: 'Open Sans', sans-serif;
 }
 
 .btn-group-sm>.btn.m-btn--custom,
@@ -26252,7 +26252,7 @@ button:focus {
 	align-items: center;
 	font-size: 1.3rem;
 	font-weight: 500;
-	font-family: Roboto;
+	font-family: 'Open Sans', sans-serif;
 	margin: 0;
 	padding: 0
 }
@@ -26262,7 +26262,7 @@ button:focus {
 	padding-left: 5px;
 	font-size: 1rem;
 	font-weight: 300;
-	font-family: Roboto
+	font-family: 'Open Sans', sans-serif;
 }
 
 .m-portlet .m-portlet__head .m-portlet__head-caption .m-portlet__head-title .m-portlet__head-text .m-portlet__head-desc {
@@ -26270,7 +26270,7 @@ button:focus {
 	display: block;
 	font-size: .85rem;
 	font-weight: 300;
-	font-family: Roboto
+	font-family: 'Open Sans', sans-serif;
 }
 
 .m-portlet .m-portlet__head .m-portlet__head-tools {
@@ -26736,7 +26736,7 @@ button:focus {
 .m-portlet.m-portlet--creative .m-portlet__head .m-portlet__head-caption .m-portlet__head-title .m-portlet__head-text {
 	font-size: 1rem;
 	font-weight: 400;
-	font-family: Poppins
+	font-family: 'Open Sans', sans-serif;
 }
 
 .m-portlet.m-portlet--creative .m-portlet__head .m-portlet__head-caption .m-portlet__head-title .m-portlet__head-text .m-portlet__head-desc {
@@ -54036,7 +54036,7 @@ select.m-select2 {
 .m-subheader .m-subheader__title {
 	display: inline-block;
 	padding: 7px 25px 7px 0;
-	font-family: Roboto;
+	font-family: 'Open Sans', sans-serif;
 	font-weight: 300;
 	font-size: 1.55rem;
 	font-weight: 500;
