@@ -16,7 +16,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <head>
         <meta charset="utf-8" />
         <title>
-            Metronic | Login Page - 3
+            Expense Manager | Login
         </title>
         <meta name="description" content="Latest updates and statistic charts">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
@@ -53,7 +53,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
                             <form class="m-login__form m-form" action="/login" id="login_form">
                                 <div class="form-group m-form__group">
-                                    <input class="form-control m-input" type="text" placeholder="Email" name="email" autocomplete="off">
+                                    <input class="form-control m-input" type="text" placeholder="Email" name="email" autocomplete="off" id="username">
                                 </div>
                                 <div class="form-group m-form__group">
                                     <input class="form-control m-input m-login__form-input--last" type="password" placeholder="Password" name="password">
@@ -163,13 +163,49 @@ License: You must have a valid license purchased only from themeforest(the above
                 </div>
             </div>
         </div>
+        
         <!-- end:: Page -->
         <!--begin::Base Scripts -->
         <script src="<?php echo base_url(); ?>assets/vendors/base/vendors.bundle.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>assets/demo/default/base/scripts.bundle.js" type="text/javascript"></script>
         <!--end::Base Scripts -->   
         <!--begin::Page Snippets -->
-        <script src="<?php echo base_url(); ?>assets/snippets/custom/pages/user/login.js" type="text/javascript"></script>
+        <!--<script src="<?php echo base_url(); ?>assets/snippets/custom/pages/user/login.js" type="text/javascript"></script>-->
+        
+        <script>
+            $("#m_login_signin_submit").click(function(e) {
+                e.preventDefault();
+                var a = $(this),
+                    l = $(this).closest("form");
+                l.validate({
+                    rules: {
+                        email: {
+                            required: !0
+                        },
+                        password: {
+                            required: !0
+                        }
+                    }
+                }), l.valid() && (a.addClass("m-loader m-loader--right m-loader--light").attr("disabled", !0),
+                    l.ajaxSubmit({
+                        url: "<?php echo base_url(); ?>Auth/login",
+                        type: "POST",
+                        success: function(data) {
+                            data = JSON.parse(data);
+                            if (data.code == '1') {
+                                a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1);
+                                window.location = data.home;
+
+                            } else {
+                                setTimeout(function() {
+                                    a.removeClass("m-loader m-loader--right m-loader--light").attr("disabled", !1), i(l, "danger", data.response)
+                                }, 2e3)
+                            }
+
+                        }
+                    }));
+        });
+        </script>
         <!--end::Page Snippets -->
     </body>
     <!-- end::Body -->
