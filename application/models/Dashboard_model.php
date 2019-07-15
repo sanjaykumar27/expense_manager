@@ -6,6 +6,24 @@ class Dashboard_model extends CI_Model {
         parent::__construct();
     }
 
+    function insertData($param,$tbl)
+    {
+        $this->db->insert($tbl, $param);
+        $id = $this->db->insert_id();
+        return $id;
+    }
+
+    function getPaymentMode(){
+        $this->db->select('*');
+        $this->db->from('account_master');
+        $result = $this->db->get()->result_array();
+        if (isset($result)) {
+            return $result;
+        } else {
+            return '';
+        }
+    }
+    
     function getCategories($catid){
 
         $this->db->select('categories.category_name,'
@@ -75,10 +93,10 @@ class Dashboard_model extends CI_Model {
         }
     }
     
-    function getTypeList(){
+    function getTypeList($id){
         $this->db->select('collections.name,collections.id');
         $this->db->from('collections');
-        $this->db->where('collections.collectiontype_id',1);
+        $this->db->where('collections.collectiontype_id',$id);
         $this->db->order_by('collections.name');
         $result = $this->db->get()->result_array();
         if (isset($result)) {

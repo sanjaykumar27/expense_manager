@@ -627,10 +627,10 @@
                                                 </div>
                                             </li>
                                             <li class="m-menu__item "  m-menu-link-redirect="1" aria-haspopup="true">
-                                                <a  href="inner.html" class="m-menu__link ">
+                                                <a  href="<?php echo base_url() ?>expense/emi_list" class="m-menu__link ">
                                                     <i class="m-menu__link-icon flaticon-users"></i>
                                                     <span class="m-menu__link-text">
-                                                        Register Member
+                                                        EMI/Loans
                                                     </span>
                                                 </a>
                                             </li>
@@ -772,10 +772,10 @@
                                                     </h3>
                                                     <ul class="m-menu__inner">
                                                         <li class="m-menu__item "  m-menu-link-redirect="1" aria-haspopup="true">
-                                                            <a  href="inner.html" class="m-menu__link ">
+                                                            <a  href="<?php echo base_url(); ?>reports/loans" class="m-menu__link ">
                                                                 <i class="m-menu__link-icon flaticon-map"></i>
                                                                 <span class="m-menu__link-text">
-                                                                    Annual Reports
+                                                                    Loans / EMI
                                                                 </span>
                                                             </a>
                                                         </li>

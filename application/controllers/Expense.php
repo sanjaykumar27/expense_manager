@@ -22,15 +22,17 @@ class Expense extends CI_Controller {
         {
             $data['page_name'] = 'Create Expense';
             $data['categories_list'] = $this->Dashboard_model->getCategoriesList();
-            $data['type_list'] = $this->Dashboard_model->getTypeList();
-            $this->load->view('expense/create_expense',$data);
+            $data['type_list'] = $this->Dashboard_model->getTypeList(1);
+            $data['payment_type'] = $this->Dashboard_model->getTypeList(2);
+            $data['payment_mode'] = $this->Dashboard_model->getPaymentMode();
+            $this->load->view('expense/create_expense', $data);
         }
         else
         {
             redirect('/');
         }
     }
-    
+
     public function expense_list()
     {
         if (strlen($this->session->userdata('is_logged_in')) and $this->session->userdata('is_logged_in') == 1)
@@ -47,16 +49,17 @@ class Expense extends CI_Controller {
             redirect('/');
         }
     }
-    
+
     public function getSubCategories()
     {
-        if (strlen($this->session->userdata('is_logged_in')) and $this->session->userdata('is_logged_in') == 1) {
+        if (strlen($this->session->userdata('is_logged_in')) and $this->session->userdata('is_logged_in') == 1)
+        {
             $html = '<option disabled selected value="">--select one--</option>';
             $cat_id = $this->input->post('cat_id');
             $data['categories'] = $this->Dashboard_model->getCategories($cat_id);
-            foreach($data['categories'] as $value)
+            foreach ($data['categories'] as $value)
             {
-                $html .= '<option value="'.$value["sub_id"].'">'.$value["subcategory_name"].'</option>';
+                $html .= '<option value="' . $value["sub_id"] . '">' . $value["subcategory_name"] . '</option>';
             }
             echo $html;
         }
@@ -64,8 +67,8 @@ class Expense extends CI_Controller {
         {
             redirect('/');
         }
-        
     }
+
     public function createExpense()
     {
         if (strlen($this->session->userdata('is_logged_in')) and $this->session->userdata('is_logged_in') == 1)
@@ -75,8 +78,9 @@ class Expense extends CI_Controller {
             $config['max_size'] = '0';
             $config['allowed_types'] = 'gif|jpg|png|pdf|doc|xls|jpeg|psd|mp4|mp3|ogv|mpeg|xlsx|docs|rtf|docx|rar|zip|tr|ppt|pptx';
             $this->load->library('upload', $config);
-            
-            if ($_FILES['custom_file']['name'] != '') {
+
+            if ($_FILES['custom_file']['name'] != '')
+            {
                 $files = $_FILES['custom_file'];
                 $_FILES['custom_file']['name'] = $files['name'];
                 $_FILES['custom_file']['type'] = $files['type'];
@@ -88,17 +92,21 @@ class Expense extends CI_Controller {
                 $images[] = $fileName;
                 $config['file_name'] = $fileName;
                 $this->upload->initialize($config);
-                if (!$this->upload->do_upload('custom_file')) {
+                if (!$this->upload->do_upload('custom_file'))
+                {
                     $data = array('code' => 2, 'response' => $this->upload->display_errors());
                     echo json_encode($data);
-                } else {
+                }
+                else
+                {
                     $file_details = $this->upload->data();
                 }
-                if (isset($file_details)) {
+                if (isset($file_details))
+                {
                     $image_url = base_url() . 'assets/uploads/attachments/' . $file_details['file_name'];
                 }
             }
-            
+
             $param = array(
                 'user_id' => $user_id,
                 'category_id' => $this->input->POST('subcat_id'),
@@ -106,27 +114,134 @@ class Expense extends CI_Controller {
                 'unit' => $this->input->POST('type'),
                 'purchase_date' => $this->input->POST('date'),
                 'receipt_url' => $image_url,
-                'receipt_name'=> $fileName,
+                'receipt_name' => $fileName,
                 'remark' => $this->input->POST('remark'),
                 'amount' => $this->input->POST('amount'),
                 'deleted' => 0
             );
             $Id = $this->Expense_model->createExpense($param);
-            if($Id != "")
+            if ($Id != "")
             {
                 $data = array('code' => 1, 'response' => 'Expense Created Succesfully!');
-            }  else
+            }
+            else
             {
                 $data = array('code' => 2, 'response' => 'Something wrong happened! Please try again');
             }
             echo json_encode($data);
-        } else 
+        }
+        else
         {
             redirect('/');
         }
+    }
+
+    public function emi_list()
+    {
+        if (strlen($this->session->userdata('is_logged_in')) and $this->session->userdata('is_logged_in') == 1)
+        {
+            $data['page_name'] = 'Expense';
+            $data['emi_list'] = $this->Expense_model->getAllEmi();
+            $data['paid_via'] = $this->Expense_model->getCategoryList(4);
+            //$this->echoThis($data['paid_via']);die;
+            $this->load->view('loans/emi_list', $data);
+        }
+        else
+        {
+            redirect('/');
+        }
+    }
+
+    public function addEMI()
+    {
+        $param = array(
+            'loan_name' => $this->input->POST('emi_name'),
+            'starting_date' => $this->input->POST('starting_date'),
+            'ending_date' => $this->input->POST('ending_date'),
+            'total_amount' => $this->input->POST('total_amount'),
+            'no_of_emi' => $this->input->POST('no_of_emi'),
+            'interest_amount' => $this->input->POST('interest_amount'),
+            'cash_paid' => $this->input->POST('cash_paid'),
+            'paid_via' => $this->input->POST('paid_via'),
+            'status' => 1
+        );
+        $insertId = $this->Dashboard_model->insertData($param,'loan_master');
+        if ($insertId > 0)
+        {
+            $data = array('code' => 1, 'response' => 'EMI Succesfully Created');
+        }
+        else
+        {
+            $data = array('code' => 0, 'response' => 'Something went Wrong! Please try again later.');
+        }
+        echo json_encode($data);
+    }
+
+    public function emi_detail()
+    {
+        $data['page_name'] = 'EMI Details | Expense Manager';
+        $emi_id = $this->uri->segment(3);
+        $data['emi_master'] = $this->Expense_model->getEmiMasterDetail($emi_id);
+        $data['installment_list'] = $this->Expense_model->getInstallmentList($emi_id);
         
+        $paid_amount = 0;
+        $count = 0;
+        foreach($data['installment_list'] as $key => $value)
+        {
+            if($value['status'] == 1)
+            {
+                $paid_amount += $value['loan_amount'];
+                $count++;
+            }
+        }
+        
+        $data['emi_id'] = $emi_id;
+        $data['paid_amount'] = $paid_amount;
+        $data['emi_count'] = $count;
+        $this->load->view('loans/emi_details', $data);
+    }
+
+    public function pay_installment()
+    {
+        $instaid = $this->input->POST('insta_id');
+        $param = array(
+            'paid_on' => $this->input->POST('paid_date'),
+            'status' => 1
+        );
+        
+        $insertId = $this->Expense_model->markInstallmentPaid($param,$instaid);
+        if ($insertId > 0)
+        {
+            $data = array('code' => 1, 'response' => 'Installment Paid Succesfully');
+        }
+        else
+        {
+            $data = array('code' => 0, 'response' => 'Something went Wrong! Please try again later.');
+        }
+        echo json_encode($data);
     }
     
+    public function create_installment()
+    {
+        $param = array(
+            'due_date' => $this->input->POST('due_date'),
+            'loan_id' => $this->input->POST('loan_id'),
+            'paid_on' => null,
+            'loan_amount' => $this->input->POST('loan_amount'),
+            'status' => 0
+        );
+        
+        $insertId = $this->Dashboard_model->insertData($param,'loan_details');
+        if ($insertId > 0)
+        {
+            $data = array('code' => 1, 'response' => 'Installment Succesfully Created');
+        }
+        else
+        {
+            $data = array('code' => 0, 'response' => 'Something went Wrong! Please try again later.');
+        }
+        echo json_encode($data);
+    }
     
     /* this function used to print the data */
     public function echoThis($array)
