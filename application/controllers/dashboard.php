@@ -129,6 +129,8 @@ class Dashboard extends CI_Controller {
              redirect('/');
         }
     }
+
+   
     /* this function used to print the data */
     public function echoThis($array)
     {

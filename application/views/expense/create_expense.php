@@ -91,6 +91,36 @@
                                         </div>
                                     </div>
                                     <div class="row align-items-center" style="margin-top: 25px;">
+                                        <div class="col-lg-4 m-form__control">
+                                            <label for="">Account</label>
+                                            <select name="cat_id" required onChange="getSubCategory(this.value);" class="form-control selectpicker" data-live-search="true" id="m_form_status">
+                                                <option selected disabled value=''>--select one--</option>
+                                                <?php
+                                                foreach ($payment_mode as $value)
+                                                {
+                                                    ?>
+                                                    <option value="<?php echo $value['id']; ?>">
+                                                        <?php echo $value['bank_name'].'-'.$value['account_number']; ?>
+                                                    </option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-4 m-form__control">
+                                            <label for="">Payment Type</label>
+                                            <select name="cat_id" required onChange="getSubCategory(this.value);" class="form-control selectpicker" data-live-search="true" id="m_form_status">
+                                                <option selected disabled value=''>--select one--</option>
+                                                <?php
+                                                foreach ($payment_type as $value)
+                                                {
+                                                    ?>
+                                                    <option value="<?php echo $value['id']; ?>">
+                                                        <?php echo $value['name'] ?>
+                                                    </option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 25px;">
                                         <div class="col-lg-8 m-form__control">
                                             <label>Remark</label>
                                             <textarea class="form-control m-input m-input--air" name="remark" id="exampleTextarea" rows="3"></textarea>
