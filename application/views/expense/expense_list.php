@@ -43,7 +43,7 @@
                                                                  <option value="<?php echo $value['category_name']; ?>">
                                                                  <?php echo $value['category_name']; ?>
                                                                  </option>
- <?php } ?>
+                                                            <?php } ?>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -66,7 +66,7 @@
                                                                  <option value="<?php echo $value['category_name']; ?>">
                                                                  <?php echo $value['category_name']; ?>
                                                                  </option>
- <?php } ?>
+                                                            <?php } ?>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -86,6 +86,11 @@
                                 </div>
                             </div>
                             <div class="m_datatable" id="local_data"></div>
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <H4>Total Amount: &#x20B9; <strong><?php echo $total_amount; ?></strong></H4>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -183,10 +188,18 @@
                             width: 115,
                             title: "Category Name"
                         },{
+                            field: "bank_name",
+                            width: 110,
+                            title: "Account"
+                        },{
+                            field: "payment",
+                            width: 110,
+                            title: "Payment Method"
+                        },{
                             field: "remark",
                             width: 110,
                             title: "Remark"
-                        },{
+                        },/*{
                             field: "Edit",
                             width: 50,
                             title: "Actions",
@@ -196,7 +209,7 @@
                             {
                                 return '<button id="expense_edit" class="btn m-btn--pill btn-primary">Edit</button>'
                             }
-                        }, {
+                        }*/ {
                             field: "Reciept",
                             width: 60,
                             title: "Reciept",

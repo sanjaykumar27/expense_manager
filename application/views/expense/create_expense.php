@@ -47,13 +47,13 @@
                                         </div>
                                         <div class="col-lg-4 m-form__control">
                                             <label for="">Expense Date</label>
-                                            <input type="date" class="form-control" name="date">
+                                            <input type="date" class="form-control" name="date" required>
                                         </div>
                                     </div>
                                     <div class="row align-items-center" style="margin-top: 25px;">
                                         <div class="col-lg-2 m-form__control">
                                             <label for="">Quantity</label>
-                                            <input type="number" value="1" name="quantity" class="form-control">
+                                            <input type="number" value="1" name="quantity" class="form-control" required>
                                         </div>
                                         <div class="col-lg-2 m-form__control">
                                             <label for="">Type</label>
@@ -93,7 +93,7 @@
                                     <div class="row align-items-center" style="margin-top: 25px;">
                                         <div class="col-lg-4 m-form__control">
                                             <label for="">Account</label>
-                                            <select name="cat_id" required onChange="getSubCategory(this.value);" class="form-control selectpicker" data-live-search="true" id="m_form_status">
+                                            <select required  name="account" class="form-control selectpicker">
                                                 <option selected disabled value=''>--select one--</option>
                                                 <?php
                                                 foreach ($payment_mode as $value)
@@ -107,7 +107,7 @@
                                         </div>
                                         <div class="col-lg-4 m-form__control">
                                             <label for="">Payment Type</label>
-                                            <select name="cat_id" required onChange="getSubCategory(this.value);" class="form-control selectpicker" data-live-search="true" id="m_form_status">
+                                            <select required class="form-control selectpicker" name="payment_type">
                                                 <option selected disabled value=''>--select one--</option>
                                                 <?php
                                                 foreach ($payment_type as $value)

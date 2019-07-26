@@ -6,6 +6,19 @@ class Dashboard_model extends CI_Model {
         parent::__construct();
     }
 
+    function getAccountOwner()
+    {
+        $this->db->select('*');
+        $this->db->from('user');
+        $result = $this->db->get()->result_array();
+        if (isset($result)) {
+            return $result;
+        } else {
+            return '';
+        }
+        
+    }
+    
     function insertData($param,$tbl)
     {
         $this->db->insert($tbl, $param);
@@ -13,6 +26,19 @@ class Dashboard_model extends CI_Model {
         return $id;
     }
 
+    function getCollectionName($cid)
+    {
+        $this->db->select('name');
+        $this->db->from('collections');
+        $this->db->where('collections.id',$cid);
+        $result = $this->db->get()->result_array();
+        if (isset($result[0]['name'])) {
+            return $result[0]['name'];
+        } else {
+            return '';
+        }
+    }
+    
     function getPaymentMode(){
         $this->db->select('*');
         $this->db->from('account_master');
@@ -71,18 +97,17 @@ class Dashboard_model extends CI_Model {
 
     function getExpenseList($userid)
     {
-         $this->db->select('expense.id,expense.user_id,expense.category_id,expense.quantity,expense.unit,'
-                 . 'expense.purchase_date,expense.remark,expense.amount,expense.remark,'
-                 . 'expense.receipt_url,'
+         $this->db->select('expense.*,'
                  . 'categories.category_name,'
                 . 'categories.id as cat_id,'
                 . 'sub_categories.subcategory_name,'
                 . 'sub_categories.id as sub_id,'
-                 . 'collections.name');
+                 . 'collections.name,account_master.bank_name');
         $this->db->from('expense');
         $this->db->join('sub_categories', 'sub_categories.id = expense.category_id', 'left');
         $this->db->join('categories', 'categories.id = sub_categories.category_id', 'left');
         $this->db->join('collections', 'collections.id = expense.unit', 'left');
+        $this->db->join('account_master', 'account_master.id = expense.account', 'left');
         $this->db->where('expense.user_id',$userid);
         $this->db->order_by('expense.purchase_date','DESC');
         $result = $this->db->get()->result_array();
