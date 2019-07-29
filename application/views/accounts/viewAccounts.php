@@ -52,7 +52,7 @@
 <div class="modal fade" id="m_modal_add_category" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none; padding-right: 17px;">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <form action="" method="post" id="add_category_model" style="margin-bottom: 0px;">
+            <form action="" method="post" id="add_account" style="margin-bottom: 0px;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">
                         Add Account
@@ -117,10 +117,10 @@
                         <div class="col-lg-6">
                             <div class="form-group m-form__group">
                                 <label for="imaging_date" class="col col-form-label">
-                                    Account Owner
+                                    Account Type
                                 </label>
                                 <div class="col">
-                                    <select class="form-control" name="account_owner" required="true">
+                                    <select class="form-control" name="account_type" required="true">
                                         <option value="0" selected disabled>--Select Option--</option>
                                         <?php foreach($payment_type as $value) { ?>
                                                 <option value="<?php echo $value['id'] ?>"><?php echo $value['name'] ?></option>
@@ -153,6 +153,34 @@
         $('body').removeClass('m-page--loading');
     });
 
+    $('#add_account').submit(function(e){
+        e.preventDefault();
+        $('#preloader').css("display", "block");
+        var formData = new FormData(this);
+        $.ajax({
+            url: '<?php echo base_url(); ?>Expense/createAccount',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data)
+            {
+                data=JSON.parse(data);
+                if(data.code==1)
+                {
+                    $('#preloader').css("display", "none");
+                    swal({title: "Success", text: data.response, type: "success", confirmButtonClass: "btn btn-primary m-btn m-btn--wide"}).then(function () {
+                        location.reload();
+                    });
+                }
+                else
+                {
+                    $('#preloader').css("display", "none");
+                    swal({title:"Error",text:data.response,type:"error",confirmButtonClass:"btn btn-primary m-btn m-btn--wide"});
+                }
+            }
+        });
+    });
 
     $(function ()
     {

@@ -109,7 +109,7 @@ class Dashboard_model extends CI_Model {
         $this->db->join('collections', 'collections.id = expense.unit', 'left');
         $this->db->join('account_master', 'account_master.id = expense.account', 'left');
         $this->db->where('expense.user_id',$userid);
-        $this->db->order_by('expense.purchase_date','DESC');
+        $this->db->order_by('expense.id','DESC');
         $result = $this->db->get()->result_array();
         if (isset($result)) {
             return $result;

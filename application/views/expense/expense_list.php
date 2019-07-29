@@ -11,6 +11,7 @@
                                 <div class="m-portlet__head-title">
                                     <h3 class="m-portlet__head-text">
                                         Expense List
+                                        <span class="text-align:right">Total Amount: &#x20B9; <strong><?php echo $total_amount; ?></strong></span>
                                     </h3>
                                 </div>
                             </div>
@@ -26,7 +27,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-lg-12">
                                         <div class="form-group m-form__group row align-items-center">
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-3">
                                                 <div class="m-form__group m-form__group--inline">
                                                     <div class="m-form__label" style="width: 20%">
                                                         <label>
@@ -61,13 +62,7 @@
                                                             <option value="">
                                                                 All
                                                             </option>
-                                                            <?php foreach ($categories_list as $value)
-                                                             { ?>
-                                                                 <option value="<?php echo $value['category_name']; ?>">
-                                                                 <?php echo $value['category_name']; ?>
-                                                                 </option>
-                                                            <?php } ?>
-                                                        </select>
+                                                        </select>        
                                                     </div>
                                                 </div>
                                             </div>
@@ -86,11 +81,7 @@
                                 </div>
                             </div>
                             <div class="m_datatable" id="local_data"></div>
-                            <div class="row">
-                                <div class="col-lg-2">
-                                    <H4>Total Amount: &#x20B9; <strong><?php echo $total_amount; ?></strong></H4>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -130,7 +121,7 @@
 <script>
     var sampledata = {};
     sampledata = '<?php echo empty($all_expense) ? '{}' : json_encode($all_expense) ?>';
-
+    
     $(window).on('load', function ()
     {
         $('body').removeClass('m-page--loading');
@@ -199,38 +190,13 @@
                             field: "remark",
                             width: 110,
                             title: "Remark"
-                        },/*{
-                            field: "Edit",
-                            width: 50,
-                            title: "Actions",
-                            sortable: !1,
-                            overflow: "visible",
-                            template: function (e, a, i)
-                            {
-                                return '<button id="expense_edit" class="btn m-btn--pill btn-primary">Edit</button>'
-                            }
-                        }*/ {
-                            field: "Reciept",
-                            width: 60,
-                            title: "Reciept",
-                            sortable: !1,
-                            overflow: "visible",
-                            template: function (e, a, i)
-                            {
-                                if(e.receipt_url != '') {
-                                    return '<i data-target="#m_modal_show_reciept" data-toggle="modal" style="cursor: pointer" class="fa fa-paperclip"></i>'
-                                } else
-                                {
-                                    return ''
-                                }
-                            }
                         }]
                 }), i = a.getDataSourceQuery(), $("#m_form_status").on("change", function ()
                 {
                     a.search($(this).val(), "category_name")
                 }).val(void 0 !== i.Status ? i.Status : ""), $("#m_form_type").on("change", function ()
                 {
-                    a.search($(this).val(), "status")
+                    a.search($(this).val(), "subcategory_name")
                 }).val(void 0 !== i.status ? i.Status : ""), $("#m_form_status, #m_form_type").selectpicker()
             }
         };

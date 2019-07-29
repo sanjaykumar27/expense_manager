@@ -53,7 +53,7 @@
                                     <div class="row align-items-center" style="margin-top: 25px;">
                                         <div class="col-lg-2 m-form__control">
                                             <label for="">Quantity</label>
-                                            <input type="number" value="1" name="quantity" class="form-control" required>
+                                            <input type="text" value="1" name="quantity" class="form-control" required>
                                         </div>
                                         <div class="col-lg-2 m-form__control">
                                             <label for="">Type</label>
@@ -72,7 +72,7 @@
                                         <div class="col-lg-3 m-form__control">
                                             <label>Amount</label>
                                             <div class="input-group">
-                                                <input type="number" class="form-control m-input" name="amount" placeholder="Amount" aria-describedby="basic-addon2">
+                                                <input type="text" class="form-control m-input" name="amount" placeholder="Amount" aria-describedby="basic-addon2">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text" id="basic-addon2">
                                                         <i class="la la-inr" aria-hidden="true"></i>

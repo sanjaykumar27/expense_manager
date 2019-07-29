@@ -15,6 +15,18 @@ class Expense extends CI_Controller {
         $this->load->model('Dashboard_model');
         $this->load->model('Expense_model');
     }
+    
+    public function createAccount()
+    {
+        $param = array(
+            'account_owner' => $this->input->POST('account_owner'),
+            'account_number' => $this->input->POST('account_number'),
+            'bank_name' => $this->input->POST('account_name'),
+            'ifsc_code' => $this->input->POST('ifsc'),
+            'type' => $this->input->POST('account_type'),
+            'status' => 1
+        );
+    }
 
     public function create_expense()
     {
@@ -52,9 +64,10 @@ class Expense extends CI_Controller {
                 {
                     $data['all_expense'][$key]['payment'] = $this->Dashboard_model->getCollectionName($value['payment_type']);
                     $data['total_amount'] += $value['amount'];
+                    $data[$key]['purchase_date'] = date('d-m-Y',strtotime($value['purchase_date']));
                 }
             }
-            //$this->echoThis($data['all_expense']);die;
+            //s$this->echoThis($data['all_expense']);die;
             $this->load->view('expense/expense_list', $data);
         }
         else
