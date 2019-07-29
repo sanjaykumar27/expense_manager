@@ -10,13 +10,13 @@
                             <div class="m-portlet__head-caption">
                                 <div class="m-portlet__head-title">
                                     <h3 class="m-portlet__head-text">
-                                        Expense List
+                                        Account List
                                     </h3>
                                 </div>
                             </div>
-                            <div style="text-align: right; vertical-align: middle;padding-top: 15px;">
+                            <div style="text-align: right; vertical-align: middle;padding-top: 20px;">
                                 <div class="m-portlet__head-title">
-                                    <a class="btn m-btn--pill btn-dark " href="<?php echo base_url(); ?>expense/create_expense">Add Expense</a>
+                                    <a class="btn m-btn--pill btn-dark btn-sm" data-target="#m_modal_add_category" data-toggle="modal" href="#">Add Account</a>
                                 </div>
                             </div>
                         </div>
@@ -49,6 +49,100 @@
     </div>
 </div>
 
+<div class="modal fade" id="m_modal_add_category" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none; padding-right: 17px;">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form action="" method="post" id="add_account" style="margin-bottom: 0px;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Add Account
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            ×
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group m-form__group">
+                                <label for="imaging_date" class="col col-form-label">
+                                    Account Owner
+                                </label>
+                                <div class="col">
+                                    <select class="form-control" name="account_owner" required="true">
+                                        <option value="0" selected disabled>--Select Option--</option>
+                                        <?php foreach($account_owner as $value) { ?>
+                                                <option value="<?php echo $value['id'] ?>"><?php echo $value['first_name'].' '.$value['last_name'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-6">
+                            <div class="form-group m-form__group">
+                                <label for="imaging_date" class="col col-form-label">
+                                    Account Number
+                                </label>
+                                <div class="col">
+                                    <input type="text" name="account_number" class="form-control" placeholder="Enter Account Number...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group m-form__group">
+                                <label for="imaging_date" class="col col-form-label">
+                                    Account Name
+                                </label>
+                                <div class="col">
+                                    <input type="text" name="account_name" class="form-control" placeholder="Enter Account Name...">
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-lg-6">
+                            <div class="form-group m-form__group">
+                                <label for="imaging_date" class="col col-form-label">
+                                    IFSC Code
+                                </label>
+                                <div class="col">
+                                    <input type="text" name="ifsc" class="form-control" placeholder="Enter IFSC...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group m-form__group">
+                                <label for="imaging_date" class="col col-form-label">
+                                    Account Type
+                                </label>
+                                <div class="col">
+                                    <select class="form-control" name="account_type" required="true">
+                                        <option value="0" selected disabled>--Select Option--</option>
+                                        <?php foreach($payment_type as $value) { ?>
+                                                <option value="<?php echo $value['id'] ?>"><?php echo $value['name'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                         
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">
+                        Close
+                    </button>
+                    <input type="submit" id="add_category_model" class="btn btn-primary" value="Submit">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <?php $this->load->view('includes/footer'); ?>
 <script>
     var sampledata = {};
@@ -59,6 +153,34 @@
         $('body').removeClass('m-page--loading');
     });
 
+    $('#add_account').submit(function(e){
+        e.preventDefault();
+        $('#preloader').css("display", "block");
+        var formData = new FormData(this);
+        $.ajax({
+            url: '<?php echo base_url(); ?>Expense/createAccount',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data)
+            {
+                data=JSON.parse(data);
+                if(data.code==1)
+                {
+                    $('#preloader').css("display", "none");
+                    swal({title: "Success", text: data.response, type: "success", confirmButtonClass: "btn btn-primary m-btn m-btn--wide"}).then(function () {
+                        location.reload();
+                    });
+                }
+                else
+                {
+                    $('#preloader').css("display", "none");
+                    swal({title:"Error",text:data.response,type:"error",confirmButtonClass:"btn btn-primary m-btn m-btn--wide"});
+                }
+            }
+        });
+    });
 
     $(function ()
     {

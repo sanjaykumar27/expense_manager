@@ -15,6 +15,18 @@ class Expense extends CI_Controller {
         $this->load->model('Dashboard_model');
         $this->load->model('Expense_model');
     }
+    
+    public function createAccount()
+    {
+        $param = array(
+            'account_owner' => $this->input->POST('account_owner'),
+            'account_number' => $this->input->POST('account_number'),
+            'bank_name' => $this->input->POST('account_name'),
+            'ifsc_code' => $this->input->POST('ifsc'),
+            'type' => $this->input->POST('account_type'),
+            'status' => 1
+        );
+    }
 
     public function create_expense()
     {
@@ -37,11 +49,25 @@ class Expense extends CI_Controller {
     {
         if (strlen($this->session->userdata('is_logged_in')) and $this->session->userdata('is_logged_in') == 1)
         {
+            $data['total_amount'] = 0;
             $data['page_name'] = 'Expense';
             $data['categories_list'] = $this->Dashboard_model->getCategoriesList();
             $user_id = $this->session->userdata('sess_user_id');
             $data['all_expense'] = $this->Dashboard_model->getExpenseList($user_id);
-            //$this->echoThis($data);die;
+            if(empty($data['all_expense']))
+            {
+                $data['all_expense'] = "NO RECORD FOUND!";
+            }
+            else
+            {
+                foreach($data['all_expense'] as $key => $value)
+                {
+                    $data['all_expense'][$key]['payment'] = $this->Dashboard_model->getCollectionName($value['payment_type']);
+                    $data['total_amount'] += $value['amount'];
+                    $data[$key]['purchase_date'] = date('d-m-Y',strtotime($value['purchase_date']));
+                }
+            }
+            //s$this->echoThis($data['all_expense']);die;
             $this->load->view('expense/expense_list', $data);
         }
         else
@@ -73,6 +99,7 @@ class Expense extends CI_Controller {
     {
         if (strlen($this->session->userdata('is_logged_in')) and $this->session->userdata('is_logged_in') == 1)
         {
+            $image_url = $file_details['file_name'] = null;
             $user_id = $this->session->userdata('sess_user_id');
             $config['upload_path'] = FCPATH . "/assets/uploads/reciept/";
             $config['max_size'] = '0';
@@ -95,7 +122,6 @@ class Expense extends CI_Controller {
                 if (!$this->upload->do_upload('custom_file'))
                 {
                     $data = array('code' => 2, 'response' => $this->upload->display_errors());
-                    echo json_encode($data);
                 }
                 else
                 {
@@ -114,11 +140,14 @@ class Expense extends CI_Controller {
                 'unit' => $this->input->POST('type'),
                 'purchase_date' => $this->input->POST('date'),
                 'receipt_url' => $image_url,
-                'receipt_name' => $fileName,
+                'receipt_name' => $file_details['file_name'],
                 'remark' => $this->input->POST('remark'),
                 'amount' => $this->input->POST('amount'),
+                'account' => $this->input->POST('account'),
+                'payment_type' => $this->input->POST('payment_type'),
                 'deleted' => 0
             );
+            
             $Id = $this->Expense_model->createExpense($param);
             if ($Id != "")
             {
@@ -242,6 +271,7 @@ class Expense extends CI_Controller {
         }
         echo json_encode($data);
     }
+    
     
     /* this function used to print the data */
     public function echoThis($array)
