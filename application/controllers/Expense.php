@@ -26,6 +26,16 @@ class Expense extends CI_Controller {
             'type' => $this->input->POST('account_type'),
             'status' => 1
         );
+        $id = $this->Expense_model->createAccount($param);
+        if ($id != "")
+        {
+            $data = array('code' => 1, 'response' => 'Account Created Succesfully!');
+        }
+        else
+        {
+            $data = array('code' => 2, 'response' => 'Something wrong happened! Please try again');
+        }
+        echo json_encode($data);
     }
 
     public function create_expense()
@@ -278,7 +288,7 @@ class Expense extends CI_Controller {
     {
         echo '<pre>';
         print_r($array);
-        echo '</pre>';
+        echo '</pre>';die;
     }
 
 }

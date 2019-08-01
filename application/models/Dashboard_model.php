@@ -157,9 +157,10 @@ class Dashboard_model extends CI_Model {
     {
         $this->db->select('account_master.account_owner,account_master.account_number,account_master.ifsc_code,'
                 . 'account_master.bank_name,account_master.type,account_master.id,'
-                . 'collections.name');
+                . 'collections.name as account_type,user.first_name,user.last_name');
         $this->db->from('account_master');
         $this->db->join('collections','collections.id = account_master.type','left');
+        $this->db->join('user','user.id = account_master.account_owner','left');
         $this->db->where('account_master.id',$id);
         $data = $this->db->get();
         $num = $data->num_rows();

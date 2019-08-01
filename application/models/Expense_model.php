@@ -6,6 +6,13 @@ class Expense_model extends CI_Model {
         parent::__construct();
     }
 
+    function createAccount($param)
+    {
+        $this->db->insert('account_master', $param);
+        $id = $this->db->insert_id();
+        return $id;
+    }
+    
     function createExpense($param)
     {
         $this->db->insert('expense', $param);

@@ -17,6 +17,7 @@
                             <div style="text-align: right; vertical-align: middle;padding-top: 15px;">
                                 <div class="m-portlet__head-title">
                                     <a class="btn m-btn--pill btn-dark " href="<?php echo base_url(); ?>dashboard/accounts">Account List</a>
+                                    <a class="btn m-btn--pill btn-dark " href="<?php echo base_url(); ?>dashboard/accounts">Account Transaction</a>
                                 </div>
                             </div>
                         </div>
@@ -25,18 +26,18 @@
                             <div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
                                 <div class="row align-items-center" style="margin-bottom: 50px;">
                                     <div class="row col-lg-12  m-row--col-separator-xl">
-                                        <table class="table table-sm">
+                                        <table class="table table-sm table-borderless">
                                             <tr>
                                                 <td width="10%">Owner Name:</td>
-                                                <td style="font-size: 18px"><strong>Sanjay Kumar Chaurasia</strong></td>
+                                                <td style="font-size: 16px"><strong><?php echo $account_details['first_name'].' '.$account_details['last_name']; ?></strong></td>
                                                 <td width="10%">Type:</td>
-                                                <td style="font-size: 18px"><strong>SSBI</strong></td>
+                                                <td style="font-size: 16px"><strong><?php echo $account_details['account_type']; ?></strong></td>
                                             </tr>
                                             <tr>
-                                                <td width="10%">Type:</td>
-                                                <td style="font-size: 15px"><strong>Savings</strong></td>
+                                                <td width="10%">Name:</td>
+                                                <td style="font-size: 14px"><strong><?php echo $account_details['bank_name']; ?></strong></td>
                                                 <td width="10%">Ifsc Code:</td>
-                                                <td style="font-size: 15px"><strong>SBIN0005242</strong></td>
+                                                <td style="font-size: 14px"><strong><?php echo $account_details['ifsc_code']; ?></strong></td>
                                             </tr>
                                         </table>
                                         <div class="m-widget1 col-lg-4">
