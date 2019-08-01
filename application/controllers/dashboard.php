@@ -124,8 +124,7 @@ class Dashboard extends CI_Controller {
             $data['page_name'] = 'Account Detail';
             $accid = $this->uri->segment(3);
             $data['account_details'] = $this->Dashboard_model->getAccountDetail($accid);
-            
-            //$this->echoThis($data);die;
+            //$this->echoThis($data['account_details']);die;
             $this->load->view('accounts/accountDetails',$data);
         }
         else {
