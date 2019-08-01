@@ -33,16 +33,36 @@ License: You must have a valid license purchased only from themeforest(the above
     </head>
     <!-- end::Head -->
     <!-- end::Body -->
+    <style>
+        .m-login.m-login--2 .m-login__wrapper .m-login__container .m-login__logo{
+            margin-bottom: 15px;
+        }
+        .m-login.m-login--2.m-login-2--skin-2 .m-login__container .m-login__head .m-login__title
+        {
+            color: #fff;
+        }
+        .m-login.m-login--2.m-login-2--skin-2 .m-login__container .m-login__form .m-login__form-sub .m-checkbox{
+            color: #fff;
+        }
+        .m-login.m-login--2.m-login-2--skin-2 .m-login__container .m-login__form .m-login__form-sub .m-link
+        {
+            color:#fff;
+        }
+        .m-login.m-login--2.m-login-2--skin-2 .m-login__container .m-login__account .m-login__account-link
+        {
+            color: #ffcc00;
+        }
+    </style>
     <body  class="m--skin- m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default"  >
        
         <!-- begin:: Page -->
         <div class="m-grid m-grid--hor m-grid--root m-page">
-            <div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor m-login m-login--signin m-login--2 m-login-2--skin-2" id="m_login" style="background-image: url(assets/app/media/img//bg/bg-3.jpg);">
-                <div class="m-grid__item m-grid__item--fluid	m-login__wrapper">
+            <div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor m-login m-login--signin m-login--2 m-login-2--skin-2" id="m_login" style="background-image: url(assets/uploads/login_background.jpg);">
+                <div class="m-grid__item m-grid__item--fluid	m-login__wrapper" style="padding-top: 20px;background: #000000b5;margin-top: 25px;width: 40%;border-radius: 15px;">
                     <div class="m-login__container">
                         <div class="m-login__logo">
                             <a href="#">
-                                <img src="assets/app/media/img//logos/logo-1.png">
+                                <img style="height: 220px;" src="<?php echo base_url() ?>assets/uploads/exp_manager.png">
                             </a>
                         </div>
                         <div class="m-login__signin">
@@ -73,7 +93,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
                                 </div>
                                 <div class="m-login__form-action">
-                                    <button id="m_login_signin_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air m-login__btn m-login__btn--primary">
+                                    <button id="m_login_signin_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air m-login__btn m-login__btn--primary" style="background-color: #558eb7;border-color: #558eb7;font-size: 14px;">
                                         Sign In
                                     </button>
                                 </div>

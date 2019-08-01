@@ -1,6 +1,6 @@
 <?php $this->load->view('includes/header'); ?>
 
-<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body" style="margin-top: 55px;">
+<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body" style="margin-top: 55px;background: #efefef;">
     <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-container m-container--responsive m-container--xxl">
         <div class="m-grid__item m-grid__item--fluid m-wrapper ">
             <div class="row">
