@@ -100,17 +100,17 @@
                                         <span></span>
                                     </a>
                                     <!-- END -->
-                            <!-- BEGIN: Responsive Aside Left Menu Toggler -->
+                           
                                     <a href="javascript:;" id="m_aside_left_offcanvas_toggle" class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-tablet-and-mobile-inline-block">
                                         <span></span>
                                     </a>
                                     <!-- END -->
-                            <!-- BEGIN: Responsive Header Menu Toggler -->
+                            
                                     <a id="m_aside_header_menu_mobile_toggle" href="javascript:;" class="m-brand__icon m-brand__toggler m--visible-tablet-and-mobile-inline-block">
                                         <span></span>
                                     </a>
                                     <!-- END -->
-            <!-- BEGIN: Topbar Toggler -->
+            
                                     <a id="m_aside_header_topbar_mobile_toggle" href="javascript:;" class="m-brand__icon m--visible-tablet-and-mobile-inline-block">
                                         <i class="flaticon-more"></i>
                                     </a>
@@ -572,12 +572,12 @@
                                                 </button>
                                                 <div id="m_aside_left" class="m-grid__item  m-aside-left  m-aside-left--skin-dark ">
                                                     <!-- BEGIN: Aside Menu -->
-    <div 
-        id="m_ver_menu" 
-        class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark " 
-        m-menu-vertical="1"
-         m-menu-scrollable="1" m-menu-dropdown-timeout="500"  
-        style="position: relative;">
+                                                        <div 
+                                                            id="m_ver_menu" 
+                                                            class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark " 
+                                                            m-menu-vertical="1"
+                                                            m-menu-scrollable="1" m-menu-dropdown-timeout="500"  
+                                                            style="position: relative;">
                                                         <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
                                                             <li class="m-menu__item  m-menu__item--active" aria-haspopup="true" >
                                                                 <a  href="index.html" class="m-menu__link ">
@@ -585,7 +585,7 @@
                                                                     <span class="m-menu__link-title">
                                                                         <span class="m-menu__link-wrap">
                                                                             <span class="m-menu__link-text">
-                                                                                Dashboard
+                                                                                Dashboardd
                                                                             </span>
                                                                             <span class="m-menu__link-badge">
                                                                                 <span class="m-badge m-badge--danger">
