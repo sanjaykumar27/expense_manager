@@ -29,11 +29,13 @@ a {
                                     </h3>
                                 </div>
                             </div>
+                            <?php if($emi_master['status'] != 1) { ?>
                             <div style="text-align: right; vertical-align: middle;padding-top: 20px;">
                                 <div class="m-portlet__head-title">
                                     <button class="btn m-btn--pill btn-dark btn-sm " data-target="#m_modal_add_category" data-toggle="modal">CREATE INSTALLMENT</button>
                                 </div>
                             </div>
+                            <?php } ?>
                         </div>
                         <div class="m-portlet__body" style="padding-top:15px">
                             <div class="row m-row--no-padding m-row--col-separator-xl">
@@ -147,7 +149,7 @@ a {
                                                                 echo date('d-m-Y',strtotime($value['paid_on']));
                                                             } else { echo '<strong>DUE</strong>';}?></td>
                                                             <td><?php if($value['status'] == 0){ ?>
-                                                                <button data-target="#m_modal_pay_installment" data-toggle="modal" onClick="markPayInst(<?php echo $value['id']; ?>)" class="btn btn-sm m-btn--pill btn-danger">PAY</button>
+                                                                <button data-target="#m_modal_pay_installment" data-toggle="modal" onClick="markPayInst(<?php echo $value['id']; ?>,<?php echo $value['loan_id']; ?>)" class="btn btn-sm m-btn--pill btn-danger">PAY</button>
                                                          <?php } else { ?>
                                                             <span class="m-badge m-badge--success m-badge--wide">Paid</span>
                                                           <?php  } ?></td>                                                       
@@ -234,6 +236,7 @@ a {
                         <div class="col-4">
                             <input required class="form-control m-input" type="date" name="paid_date">
                             <input type="hidden" name="insta_id" id="insta_id">
+                            <input type="hidden" name="loan_id" id="loan_id">
                         </div>
                     </div>
                 </div>
@@ -259,9 +262,10 @@ a {
         $('body').removeClass('m-page--loading');
     });
 
-    function markPayInst(iid)
+    function markPayInst(iid,loan_id)
     {
         $("#insta_id").val(iid);
+        $("#loan_id").val(loan_id);
     }
     
     $('#installment_paid').submit(function(e) {

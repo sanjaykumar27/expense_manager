@@ -14,13 +14,13 @@ a {
                             <div class="m-portlet__head-caption">
                                 <div class="m-portlet__head-title">
                                     <h3 class="m-portlet__head-text">
-                                        EMI MASTER
+                                        BORROW MASTER
                                     </h3>
                                 </div>
                             </div>
                             <div style="text-align: right; vertical-align: middle;padding-top: 20px;">
                                 <div class="m-portlet__head-title">
-                                    <button class="btn m-btn--pill btn-dark btn-sm " data-target="#m_modal_add_category" data-toggle="modal">CREATE EMI</button>
+                                    <button class="btn m-btn--pill btn-dark btn-sm " data-target="#m_modal_add_category" data-toggle="modal">CREATE BORROW</button>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@ a {
             <form action="" method="post" id="add_category_model" style="margin-bottom: 0px;">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">
-                        CREATE EMI
+                        CREATE BORROW
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
@@ -89,58 +89,36 @@ a {
                 </div>
                 <div class="modal-body">
                     <div class="form-group m-form__group row">
-                        <label for="imaging_date" class="col-2 col-form-label">
-                            NAME
+                        <label  class="col-2 col-form-label">
+                            Person Name
                         </label>
                         <div class="col-10">
-                            <input required class="form-control m-input" type="text" name="emi_name">
+                            <input placeholder="Enter Person Name..." required class="form-control m-input" type="text" name="borrow_from">
                         </div>
                     </div>
                     <div class="form-group m-form__group row">
-                        <label for="imaging_date" class="col-2 col-form-label">
-                            Starting Date
+                        <label  class="col-2 col-form-label">
+                            Borrowed Date
                         </label>
                         <div class="col-4">
-                            <input required class="form-control m-input" type="date" name="starting_date">
+                            <input placeholder="Select Date.." required class="form-control m-input" type="date" name="borrow_date">
                         </div>
-                        <label for="imaging_date" class="col-2 col-form-label">
-                            Ending Date
+                        <label  class="col-2 col-form-label">
+                            Paying Date
                         </label>
                         <div class="col-4">
-                            <input required class="form-control m-input" type="date" name="ending_date">
-                        </div>
-                    </div>
-                    <div class="form-group m-form__group row">
-                        <label for="imaging_date" class="col-2 col-form-label">
-                            Total Amount
-                        </label>
-                        <div class="col-4">
-                            <input required class="form-control m-input" type="text" name="total_amount">
-                        </div>
-                        <label for="imaging_date" class="col-2 col-form-label">
-                            No of EMI
-                        </label>
-                        <div class="col-4">
-                            <input required class="form-control m-input" type="text" name="no_of_emi">
+                            <input placeholder="Select Date.."  class="form-control m-input" type="date" name="paying_date">
                         </div>
                     </div>
                     <div class="form-group m-form__group row">
-                        <label for="imaging_date" class="col-2 col-form-label">
-                            Interest Amount
+                        <label  class="col-2 col-form-label">
+                            Amount
                         </label>
                         <div class="col-4">
-                            <input required class="form-control m-input" type="text" name="interest_amount">
+                            <input placeholder="Enter Amount...." required class="form-control m-input" type="text" name="total_amount">
                         </div>
-                        <label for="imaging_date" class="col-2 col-form-label">
-                            Cash Paid
-                        </label>
-                        <div class="col-4">
-                            <input required class="form-control m-input" type="text" name="cash_paid">
-                        </div>
-                    </div>
-                    <div class="form-group m-form__group row">
-                        <label for="imaging_date" class="col-2 col-form-label">
-                            Paid Via
+                        <label  class="col-2 col-form-label">
+                            Payment Mode
                         </label>
                         <div class="col-4">
                             <select required class="form-control" name="paid_via" >
@@ -150,7 +128,23 @@ a {
                                 <?php } ?>
                             </select>
                         </div>
-		    </div>
+                    </div>
+                    <div class="form-group m-form__group row">
+                        <label  class="col-2 col-form-label">
+                            Purpose
+                        </label>
+                        <div class="col-10">
+                            <input placeholder="Enter Purpose of Amount..." required class="form-control m-input" type="text" name="purpose">
+                        </div>
+                    </div>
+                    <div class="form-group m-form__group row">
+                        <label  class="col-2 col-form-label">
+                            Remark
+                        </label>
+                        <div class="col-10">
+                            <input placeholder="Enter Remark..." required class="form-control m-input" type="text" name="remark">
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-dark" data-dismiss="modal">

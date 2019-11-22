@@ -6,25 +6,17 @@ class Expense_model extends CI_Model {
         parent::__construct();
     }
 
-    function createAccount($param)
+    function insertSingleTable($tablename,$params)
     {
-        $this->db->insert('account_master', $param);
+        $this->db->insert($tablename, $param);
         $id = $this->db->insert_id();
         return $id;
     }
     
-    function createExpense($param)
-    {
-        $this->db->insert('expense', $param);
-        $id = $this->db->insert_id();
-        return $id;
-    }
-    
-    function getCategoryList($catid)
+    function getAllRecord($tableName)
     {
         $this->db->select('*');
-        $this->db->from('collections');
-        $this->db->where('collections.collectiontype_id',$catid);
+        $this->db->from($tableName);
         $result = $this->db->get()->result_array();
         if (isset($result)) {
             return $result;
@@ -32,10 +24,20 @@ class Expense_model extends CI_Model {
             return '';
         }
     }
-    function getAllEmi()
+
+    function updateField($tableName, $field, $row, $param)
+    {
+        $this->db->where($field, $row);
+        $this->db->update($tableName, $param);
+        $affected_rows = $this->db->affected_rows();
+        return $affected_rows;
+    }
+
+    function getCategoryList($catid)
     {
         $this->db->select('*');
-        $this->db->from('loan_master');
+        $this->db->from('collections');
+        $this->db->where('collections.collectiontype_id',$catid);
         $result = $this->db->get()->result_array();
         if (isset($result)) {
             return $result;
@@ -70,13 +72,19 @@ class Expense_model extends CI_Model {
         }
     }
     
-    function markInstallmentPaid($param, $instaid)
+    function checkInstallmentStatus($loan_id)
     {
-        $this->db->where('id', $instaid);
-        $this->db->update('loan_details', $param);
-        $affected_rows = $this->db->affected_rows();
-        return $affected_rows;
+        $this->db->select('loan_master.no_of_emi, count(loan_details.status) as loan_paid');
+        $this->db->from('loan_master');
+        $this->db->join('loan_details','loan_details.loan_id = loan_master.id','left');
+        $this->db->where('loan_master.id',$loan_id);
+        $this->db->where('loan_details.status',1);
+        $result = $this->db->get()->result_array();
+        if (isset($result[0])) {
+            return $result[0];
+        } else {
+            return '';
+        }
     }
-    
     
 }
