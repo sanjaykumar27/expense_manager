@@ -128,43 +128,35 @@ class Auth extends CI_Controller {
     }
 
     public function login() {
-        $email = $this->input->POST('email');
+        $username = $this->input->POST('username');
         $pass = md5($this->input->POST('password'));
-        $check_email_exist = $this->User_model->validate_email($email);
-        if ($check_email_exist != '') {
-            $validated_user = $this->User_model->validate_user($email, $pass);
+        $check_username_exist = $this->User_model->validate_username($username);
+        if ($check_username_exist != '') {
+            $validated_user = $this->User_model->validate_user($username, $pass);
             if ($validated_user != '') {
                 $get_valid_user_details = $this->User_model->get_validated_user_details($validated_user);
                 $sessdata = array(
                     'sess_user_id' => $validated_user,
                     'sess_users_name' => $get_valid_user_details['first_name'] . ' ' . $get_valid_user_details['last_name'],
+                    'sess_username' => $get_valid_user_details['username'],
                     'sess_users_email' => $get_valid_user_details['email'],
                     'sess_utype' => $get_valid_user_details['user_type'],
+                    'sess_theme' => $get_valid_user_details['main_theme'], 
                     'is_logged_in' => 1,
                 );
                 $this->session->set_userdata($sessdata);
                 if ($get_valid_user_details['user_type'] == 'User') {
                     $url = "dashboard/";
+                    $this->setPage();
                 } else {
                     $url = "dashboard/admin";
                 }
                 $data = array('code' => 1, 'response' => 'success', 'home' => $url);
             } else {
-                $registerd_cell = $this->User_model->get_field_value_condition('user', 'mobile', array('email' => $email));
-                $ruwid = $this->User_model->get_field_value_condition('user', 'id', array('email' => $email));
-                if ($registerd_cell != '') {
-                    $data = array('code' => 0, 'response' => "Incorrect password. Don't remember your password? <a href='javascript:;' id='sign_up_otp' class='m-link m-link--focus m-login__account-link' data-cell='" . $registerd_cell . "' data-uid='" . base64_encode(urlencode($ruwid)) . "'>Login Via OTP</a> OR <a href='javascript:;'' id='forget' class='m-link'>Forget Password ?</a>");
-                } else {
-                    $cell = $this->User_model->get_field_value_condition('user', 'mobile', array('mobile' => $email));
-                    if ($cell != '') {
-                        $data = array('code' => 0, 'response' => "Incorrect password. Don't remember your password? <a href='javascript:;' id='sign_up_otp' class='m-link m-link--focus m-login__account-link' data-cell='" . $cell . "' data-uid='" . base64_encode(urlencode($ruwid)) . "'>Login Via OTP</a> OR <a href='javascript:;'' id='forget' class='m-link'>Forget Password ?</a>");
-                    } else {
-                        $data = array('code' => 0, 'response' => "Incorrect password. Don't remember your password? <a href='javascript:;'' id='forget' class='m-link'>Forget Password ?</a>");
-                    }
-                }
+                $data = array("code" => 2, "response" => "Email or Mobile has not been registerd with us. <a href='javascript:;' id='sign_up_now' class='m-link m-link--focus m-login__account-link'>Sign Up Now</a>");
             }
         } else {
-            $data = array("code" => 2, "response" => "Email or Mobile has not been registerd with us. <a href='javascript:;' id='sign_up_now' class='m-link m-link--focus m-login__account-link'>Sign Up Now</a>");
+            $data = array("code" => 2, "response" => "This user is not registored with us.");
         }
         echo json_encode($data);
     }
@@ -174,6 +166,15 @@ class Auth extends CI_Controller {
         $url = '/';
         redirect($url);
         exit;
+    }
+
+    public function setPage()
+    {
+        $_SESSION['menu_pages'] = array(
+            'Expense' => array('Expense List','Create Expense','EMI List','EMI Details','Borrowed List'),
+            'Accounts' => array('Accounts'),
+            'Masters' => array('Categories')
+        );
     }
 
     public function forget_password() {

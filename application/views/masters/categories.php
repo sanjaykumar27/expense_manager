@@ -1,9 +1,18 @@
 <?php $this->load->view('includes/header'); ?>
 
-<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body" style="margin-top: 55px;background: #efefef;">
-    <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-container m-container--responsive m-container--xxl">
-        <div class="m-grid__item m-grid__item--fluid m-wrapper ">
-            <div class="row">
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+        <!-- BEGIN: Subheader -->
+        <div class="m-subheader">
+            <div class="d-flex align-items-center">
+                <div class="mr-auto ">
+                    <h3 class="m-subheader__title d-lg-none d-md-none d-sm-none">
+                        Categories
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="m-content">
+        <div class="row">
                 <div class="col-lg-12">
                     <div class="m-portlet m-portlet--success m-portlet--head-solid-bg">
                         <div class="m-portlet__head" style="width: 100%;">
@@ -72,6 +81,7 @@
         </div>
     </div>
 </div>
+
 <!-- Add category model --------------------------------------------------->
 <div class="modal fade" id="m_modal_add_category" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none; padding-right: 17px;">
     <div class="modal-dialog modal-lg" role="document">

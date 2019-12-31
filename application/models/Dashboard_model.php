@@ -133,11 +133,12 @@ class Dashboard_model extends CI_Model {
     
     function getAccounts()
     {
-        $this->db->select('account_master.account_owner,account_master.id,'
+        $this->db->select('account_master.id,'
                 . 'account_master.bank_name,account_master.type,'
-                . 'collections.name');
+                . 'collections.name,account_master.account_number, CONCAT(user.first_name," ",user.last_name) as AccountOwner');
         $this->db->from('account_master');
         $this->db->join('collections','collections.id = account_master.type','left');
+        $this->db->join('user','user.id = account_master.account_owner','left');
         $data = $this->db->get();
         $num = $data->num_rows();
         if ($num > 0)
@@ -155,7 +156,7 @@ class Dashboard_model extends CI_Model {
     
     function getAccountDetail($id)
     {
-        $this->db->select('account_master.account_owner,account_master.account_number,account_master.ifsc_code,'
+        $this->db->select('account_master.id as account_id,account_master.account_owner,account_master.account_number,account_master.ifsc_code,'
                 . 'account_master.bank_name,account_master.type,account_master.id,'
                 . 'collections.name as account_type,user.first_name,user.last_name');
         $this->db->from('account_master');

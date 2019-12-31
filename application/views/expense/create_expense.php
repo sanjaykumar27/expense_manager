@@ -1,9 +1,17 @@
 <?php $this->load->view('includes/header'); ?>
-
-<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body" style="margin-top: 55px; background: #efefef">
-    <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-container m-container--responsive m-container--xxl">
-        <div class="m-grid__item m-grid__item--fluid m-wrapper ">
-            <div class="row">
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+        <!-- BEGIN: Subheader -->
+        <div class="m-subheader">
+            <div class="d-flex align-items-center">
+                <div class="mr-auto ">
+                    <h3 class="m-subheader__title d-lg-none d-md-none d-sm-none">
+                        Create Expense
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="m-content">
+        <div class="row">
                 <div class="col-lg-12">
                     <div class="m-portlet m-portlet--success m-portlet--head-solid-bg">
                         <div class="m-portlet__head" style="width: 100%;">
@@ -25,7 +33,11 @@
                             <div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
                                 <form action="" method="post" id="expense_form">
                                     <div class="row align-items-center">
-                                        <div class="col-lg-4 m-form__control">
+                                        <div class="col-lg-3 m-form__control">
+                                            <label for="">Expense Date</label>
+                                            <input class="form-control m-input" type="date" name="date" value="<?php echo date('Y-m-d'); ?>" id="example-date-input">
+                                        </div>
+                                        <div class="col-lg-3 m-form__control">
                                             <label for="">Category</label>
                                             <select name="cat_id" required onChange="getSubCategory(this.value);" class="form-control selectpicker" data-live-search="true" id="m_form_status">
                                                 <option selected disabled value=''>--select one--</option>
@@ -39,23 +51,30 @@
                                                 <?php } ?>
                                             </select>
                                         </div>
-                                        <div class="col-lg-4 m-form__control">
+                                        <div class="col-lg-3 m-form__control">
                                             <label for="">SubCategory</label>
-                                            <select type="text" id="subcategory_list" class="form-control"  name="subcat_id"  required>
-                                                <option disabled selected value="">--select one--</option>
+                                            <select type="text" id="subcategory_list" class="form-control selectpicker"  name="subcat_id"  required  data-live-search="true">
+                                                <option disabled selected value="">--Select One--</option>
                                             </select>
                                         </div>
-                                        <div class="col-lg-4 m-form__control">
-                                            <label for="">Expense Date</label>
-                                            <input type="date" class="form-control" name="date" required>
+                                        <div class="col-lg-3 m-form__control">
+                                            <label>Amount</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control m-input" name="amount" placeholder="Amount" aria-describedby="basic-addon2">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" id="basic-addon2">
+                                                        <i class="la la-inr" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row align-items-center" style="margin-top: 25px;">
-                                        <div class="col-lg-2 m-form__control">
+                                        <div class="col-lg-3 m-form__control">
                                             <label for="">Quantity</label>
                                             <input type="text" value="1" name="quantity" class="form-control" required>
                                         </div>
-                                        <div class="col-lg-2 m-form__control">
+                                        <div class="col-lg-3 m-form__control">
                                             <label for="">Type</label>
                                             <select required class="form-control selectpicker" name="type" data-live-search="true">
                                                 <option selected disabled value=''>--select one--</option>
@@ -70,28 +89,6 @@
                                             </select>
                                         </div>
                                         <div class="col-lg-3 m-form__control">
-                                            <label>Amount</label>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control m-input" name="amount" placeholder="Amount" aria-describedby="basic-addon2">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text" id="basic-addon2">
-                                                        <i class="la la-inr" aria-hidden="true"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-5 m-form__control">
-                                            <label>Upload Reciept</label>
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" name="custom_file" id="customFile">
-                                                <label class="custom-file-label" for="customFile">
-                                                    Choose file
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row align-items-center" style="margin-top: 25px;">
-                                        <div class="col-lg-4 m-form__control">
                                             <label for="">Account</label>
                                             <select required  name="account" class="form-control selectpicker">
                                                 <option selected disabled value=''>--select one--</option>
@@ -100,12 +97,12 @@
                                                 {
                                                     ?>
                                                     <option value="<?php echo $value['id']; ?>">
-                                                        <?php echo $value['bank_name'].'-'.$value['account_number']; ?>
+                                                        <?php echo $value['bank_name'].' '.$value['account_number']; ?>
                                                     </option>
                                                 <?php } ?>
                                             </select>
                                         </div>
-                                        <div class="col-lg-4 m-form__control">
+                                        <div class="col-lg-3 m-form__control">
                                             <label for="">Payment Type</label>
                                             <select required class="form-control selectpicker" name="payment_type">
                                                 <option selected disabled value=''>--select one--</option>
@@ -119,6 +116,18 @@
                                                 <?php } ?>
                                             </select>
                                         </div>
+                                        
+                                    </div>
+                                    <div class="row align-items-center" style="margin-top: 25px;">
+                                         <div class="col-lg-12 m-form__control">
+                                            <label>Upload Reciept</label>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" name="custom_file" id="customFile">
+                                                <label class="custom-file-label" for="customFile">
+                                                    Choose file
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row" style="margin-top: 25px;">
                                         <div class="col-lg-8 m-form__control">
@@ -126,8 +135,8 @@
                                             <textarea class="form-control m-input m-input--air" name="remark" id="exampleTextarea" rows="3"></textarea>
                                         </div>
                                     </div>
-                                    <div class="row align-items-center offset-5" style="margin-top: 25px;">
-                                        <input type="reset" class="btn m-btn--pill btn-lg btn-invert" value="Reset">&nbsp;&nbsp;&nbsp;
+                                    <div class="row align-items-center offset-5 text-right" style="margin-top: 25px;">
+                                        <input type="reset" class="btn m-btn--pill btn-lg btn-outline-info" value="Reset">&nbsp;&nbsp;&nbsp;
                                         <input type="submit" class="btn m-btn--pill btn-lg btn-primary" value="Submit">
                                     </div>
                                 </form>
@@ -135,15 +144,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>   
         </div>
     </div>
 </div>
-</div>
-
-<!-- Add category model --------------------------------------------------->
-
-
 
 <?php $this->load->view('includes/footer'); ?>
 <script>
@@ -161,6 +165,9 @@
             success: function (data)
             {
                 $('#subcategory_list').html(data);
+                $('#subcategory_list').addClass('selectpicker');
+                $('#subcategory_list').attr('data-live-search', 'true');
+                $('#subcategory_list').selectpicker('refresh');
             }
         });
     }

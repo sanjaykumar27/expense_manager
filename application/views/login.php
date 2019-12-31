@@ -26,6 +26,7 @@
         <!--begin::Base Styles -->
         <link href="<?php echo base_url(); ?>assets/vendors/base/vendors.bundle.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url(); ?>assets/demo/default/base/style.bundle.css" rel="stylesheet" type="text/css" />
+		<link href="<?php echo base_url(); ?>assets/snippets/custom/ripple.css" rel="stylesheet" type="text/css" />
         <!--end::Base Styles -->
         <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/demo/default/media/img/logo/favicon.ico" />
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700&display=swap" rel="stylesheet">
@@ -100,7 +101,7 @@
                             </div>
                             <form class="m-login__form m-form" action="">
                                 <div class="form-group m-form__group">
-                                    <input class="form-control m-input"   type="text" placeholder="Email" name="email" autocomplete="off">
+                                    <input class="form-control m-input" type="text" placeholder="Enter username or mobile" name="username" autocomplete="off">
                                 </div>
                                 <div class="form-group m-form__group">
                                     <input class="form-control m-input m-login__form-input--last" type="password" placeholder="Password" name="password">
@@ -120,7 +121,7 @@
                                     </div>
                                 </div>
                                 <div class="m-login__form-action">
-                                    <button id="m_login_signin_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air  m-login__btn">
+                                    <button id="m_login_signin_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air  m-login__btn ripple">
                                         Sign In
                                     </button>
                                 </div>

@@ -17,11 +17,10 @@ class User_model extends CI_Model {
         }
     }
 
-    function validate_email($email) {
+    function validate_username($username) {
         $this->db->select('id');
         $this->db->from('user');
-        $this->db->where('email', $email);
-        $this->db->or_where('mobile', $email);
+        $this->db->where('username', $username);
         $this->db->where('status', '1');
 
         $data = $this->db->get();
@@ -38,11 +37,11 @@ class User_model extends CI_Model {
         }
     }
 
-    function validate_user($email, $password) {
+    function validate_user($username, $password) {
         $this->db->select('id');
         $this->db->from('user');
-        $this->db->where('email', $email);
-        $this->db->or_where('mobile', $email);
+        $this->db->where('username', $username);
+        $this->db->or_where('mobile', $username);
         $this->db->where('password', $password);
         $this->db->where('status', '1');
 
@@ -61,9 +60,10 @@ class User_model extends CI_Model {
     }
 
     function get_validated_user_details($user_id) {
-        $this->db->select('first_name,last_name,email,mobile,user_type.user_type');
+        $this->db->select('theme.main_theme,first_name,last_name,username,email,mobile,user_type.user_type');
         $this->db->from('user');
         $this->db->join('user_type', 'user_type.ID = user.user_type', 'left');
+        $this->db->join('theme', 'theme.user_id = user.id', 'left');
         $this->db->where('user.id', $user_id);
         $result = $this->db->get()->result_array();
 

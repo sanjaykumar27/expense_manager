@@ -2,8 +2,7 @@
 
 /* index -> go to dashboard view
  * categories() 
- * 
- */
+ **/
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Dashboard extends CI_Controller {
@@ -21,8 +20,10 @@ class Dashboard extends CI_Controller {
     {
         if (strlen($this->session->userdata('is_logged_in')) and $this->session->userdata('is_logged_in') == 1)
         {
-            $data['page_name'] = 'dashboard';
+            $data['page_name'] = 'Dashboard';
             $this->load->view('dashboard', $data);
+            
+            // $this->pr($data);
         }
         else
         {
@@ -36,7 +37,7 @@ class Dashboard extends CI_Controller {
     {
         if (strlen($this->session->userdata('is_logged_in')) and $this->session->userdata('is_logged_in') == 1)
         {
-            $data['page_name'] = 'category_master';
+            $data['page_name'] = 'Categories';
             /* categories list */
             $data['categories'] = $this->Dashboard_model->getCategories(0);
             /* categories joined subcatogies */
@@ -100,45 +101,11 @@ class Dashboard extends CI_Controller {
         }
     }
     
-    public function accounts()
-    {
-        if (strlen($this->session->userdata('is_logged_in')) and $this->session->userdata('is_logged_in') == 1)
-        {
-            $data['page_name'] = 'Accounts';
-            $data['accounts'] = $this->Dashboard_model->getAccounts();
-            $data['account_owner'] = $this->Dashboard_model->getAccountOwner();
-            $data['payment_type'] = $this->Dashboard_model->getTypeList(3);
-            $this->load->view('accounts/viewAccounts',$data);
-            //$this->echoThis($data);die;
-        }
-        else 
-        {
-            redirect('/');
-        }
-    }
-    
-    public function accountDetails()
-    {
-        if (strlen($this->session->userdata('is_logged_in')) and $this->session->userdata('is_logged_in') == 1)
-        {
-            $data['page_name'] = 'Account Detail';
-            $accid = $this->uri->segment(3);
-            $data['account_details'] = $this->Dashboard_model->getAccountDetail($accid);
-            //$this->echoThis($data['account_details']);die;
-            $this->load->view('accounts/accountDetails',$data);
-        }
-        else {
-             redirect('/');
-        }
-    }
-
-    
-   
     /* this function used to print the data */
-    public function echoThis($array)
+    public function pr($array)
     {
         echo '<pre>';
         print_r($array);
-        echo '</pre>';
+        echo '</pre>';die;
     }
 }

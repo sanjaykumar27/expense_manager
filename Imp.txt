@@ -1,0 +1,23 @@
+-------- Update Field ----------------------------------------------------
+
+updateField($tablename, $id, $loanid, $params); 
+$this->db->where($field, $row);
+$this->db->update($tableName, $param);
+
+
+-------- Select * --------------------------------------------------------
+getAllRecord($tablename);
+
+-------- insert(single Table) -------------------------------------------- 
+
+insertSingleTable($tablename,$params);
+
+-------- login check ------------------------------------------------------
+if (strlen($this->session->userdata('is_logged_in')) and $this->session->userdata('is_logged_in') == 1)
+{
+
+}
+else
+{
+    redirect('/');
+}

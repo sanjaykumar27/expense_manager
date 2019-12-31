@@ -8,7 +8,7 @@ class Expense_model extends CI_Model {
 
     function insertSingleTable($tablename,$params)
     {
-        $this->db->insert($tablename, $param);
+        $this->db->insert($tablename, $params);
         $id = $this->db->insert_id();
         return $id;
     }

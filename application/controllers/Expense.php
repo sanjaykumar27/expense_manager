@@ -24,8 +24,11 @@ class Expense extends CI_Controller {
             'bank_name' => $this->input->POST('account_name'),
             'ifsc_code' => $this->input->POST('ifsc'),
             'type' => $this->input->POST('account_type'),
+            'address' => $this->input->POST('account_address'),
+            'CRN' => $this->input->POST('CRN'),
             'status' => 1
         );
+        
         $id = $this->Expense_model->insertSingleTable('account_master',$param);
         if ($id != "")
         {
@@ -60,7 +63,7 @@ class Expense extends CI_Controller {
         if (strlen($this->session->userdata('is_logged_in')) and $this->session->userdata('is_logged_in') == 1)
         {
             $data['total_amount'] = 0;
-            $data['page_name'] = 'Expense';
+            $data['page_name'] = 'Expense List';
             $data['categories_list'] = $this->Dashboard_model->getCategoriesList();
             $user_id = $this->session->userdata('sess_user_id');
             $data['all_expense'] = $this->Dashboard_model->getExpenseList($user_id);
@@ -179,7 +182,7 @@ class Expense extends CI_Controller {
     {
         if (strlen($this->session->userdata('is_logged_in')) and $this->session->userdata('is_logged_in') == 1)
         {
-            $data['page_name'] = 'Expense';
+            $data['page_name'] = 'EMI List';
             $data['emi_list'] = $this->Expense_model->getAllRecord('loan_master');
             $data['paid_via'] = $this->Expense_model->getCategoryList(4);
             //$this->echoThis($data['emi_list']);die;
@@ -227,7 +230,7 @@ class Expense extends CI_Controller {
     {
         if (strlen($this->session->userdata('is_logged_in')) and $this->session->userdata('is_logged_in') == 1)
         {
-            $data['page_name'] = 'EMI Details | Expense Manager';
+            $data['page_name'] = 'EMI Details';
             $emi_id = $this->uri->segment(3);
             $data['emi_master'] = $this->Expense_model->getEmiMasterDetail($emi_id);
             $data['installment_list'] = $this->Expense_model->getInstallmentList($emi_id);

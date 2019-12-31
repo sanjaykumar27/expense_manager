@@ -1,4 +1,5 @@
 <?php $this->load->view('includes/header'); ?>
+
 <style>
 a {
     color: #09305a;
@@ -15,10 +16,19 @@ a {
      color: #3a3b3c;
 }
 </style>
-<div class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body" style="margin-top: 55px;">
-    <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-container m-container--responsive m-container--xxl">
-        <div class="m-grid__item m-grid__item--fluid m-wrapper ">
-            <div class="row">
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+        <!-- BEGIN: Subheader -->
+        <div class="m-subheader">
+            <div class="d-flex align-items-center">
+                <div class="mr-auto ">
+                    <h3 class="m-subheader__title d-lg-none d-md-none d-sm-none">
+                        EMI Details
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="m-content">
+        <div class="row">
                 <div class="col-lg-12">
                     <div class="m-portlet m-portlet--success m-portlet--head-solid-bg">
                         <div class="m-portlet__head" style="width: 100%;">
